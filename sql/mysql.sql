@@ -1,24 +1,26 @@
 create database Trabalho;
 use Trabalho;
 
-create table Usuario (
-	idUsuario int not null,
+create table Usuarios (
+	idUsuario int primary key auto_increment,
     nome varchar(50) not null,
-    email varchar(50) not null,
-    primary key (idUsuario)
+    senha varchar (50) not null,
+    email varchar(50) not null unique 
 );
 
-create table Bebedouro (
-    idBebedouro int not null,
+create table Bebedouros (
+    idBebedouro int primary key auto_increment,
     nome varchar(50) not null,
-    localizacao varchar(20) not null,
-    primary key (idBebedouro)
+    localizacao varchar(50) not null
 );
 
 create table Analises (
-	idAnalise int not null,
+    idAnalise int primary key auto_increment,
     dataColeta date not null,
-    dataResutado date not null,
-    resultado boolean not null,
-    foreign key (idBebedouro) references Bebedouro (idBebedouro)
+    dataResultado date,
+    resultado boolean,
+    idBebedouro int not null,
+    foreign key (idBebedouro) references Bebedouros (idBebedouro)
 );
+
+INSERT INTO Usuarios (nome, senha, email) VALUES ('Lucas Domenis', '1234', 'lucas@trabalho.com');

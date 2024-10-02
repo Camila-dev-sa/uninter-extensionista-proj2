@@ -1,0 +1,37 @@
+/* Painel */
+body {
+    background: color #f1f1f1;;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container {
+    background-color: #93b394;
+    max-width: 100%;
+    padding: 30px;
+    align-items: center;
+}
+
+.container h1 {
+    padding: 10px;
+    text-align: center;
+}
+.container .table {
+    margin-top: 20px;
+}
+
+.container a {
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 10px;
+    color: black;
+    background-color: rgb(135, 179, 228);
+    display:flexbox;
+}
+
+.container a:hover {
+    background-color: rgb(114, 221, 110);
+}
+
+.form-analise input, select {
+    max-width: 50%;
+}

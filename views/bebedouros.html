@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/body.css">
+
+    <title>Bebedouros</title>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/painel">voltar</a>
+        <h1>Bebedouros</h1>
+        <table class="table" id="table-bebedouros" ></table>
+        <button id="novoBebedouro" class="btn btn-success"> Novo Bebedouro </button>
+
+        <br>
+        <form id="editarBebedouro" action="/atualizar-bebedouro" method="post">
+            <input type="hidden" name="idBebedouro" id="idBebedouro">
+            <label for="">nome</label>
+            <input type="text" name="nomeBebedouro" id="nomeBebedouro" class="form-control">
+            <label for="">local</label>
+            <input type="text" name="localizacaoBebedouro" id="localizacaoBebedouro" class="form-control">
+            <button type="submit" class="btn btn-primary">Editar</button>
+        </form>
+
+
+        <form id="novoBebedouroForm" method="post" action="/cadastrar-bebedouro">
+            <label>Nome do Bebedouro</label>
+            <input type="text" id="novoNomeBebedouro" name="nomeBebedouro">
+            <label>Localização</label>
+            <input type="text" id="novoLocalizacaoBebedouro" name="localizacaoBebedouro">
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./javascript/bebedouros.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/body.css">
+
+    <title>Análises</title>
+</head>
+
+<body>
+    <div class="container">
+        <a href="/painel">Voltar</a>
+        <h1>Análises</h1>
+        <table class="table" id="table-analises"></table>
+        <button id="novoAnalise" class="btn btn-success"> Nova Análise </button>
+
+        <br>
+        <form class="form-analise" id="editarAnalise" action="/atualizar-analise" method="post">
+            <input type="hidden" name="idAnalise" id="idAnalise">
+            <label for="">Coleta</label>
+            <input type="date" name="dataColeta" id="dataColeta" class="form-control">
+            <label for="">Identificação</label>
+            <select name="idBebedouro" id="idBebedouro" class="idBebedouro form-control"></select>
+            <label for="">Resultado</label>
+            <input type="date" name="dataResultado" id="dataResultado" class="form-control">
+            <label for="">Bacteriologicamente potável?</label>
+            <input type="text" name="resultado" id="resultado" class="form-control">
+            <button type="submit" class="btn btn-primary">Editar</button>
+        </form>
+
+
+        <form class="form-analise" id="novoAnaliseForm" method="post" action="/cadastrar-analise">
+            <label>Data da coleta</label>
+            <input type="date" name="dataColeta">
+            <label>Identificação</label>
+            <select name="idBebedouro" class="idBebedouro"></select>
+            <!-- <input type="text" name="idBebedouro"> -->
+            <button type="submit" class="btn btn-primary">Cadastrar</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./javascript/analises.js"></script>
+</body>
+
+</html>
