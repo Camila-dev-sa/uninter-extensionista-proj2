@@ -1,3 +1,5 @@
+//Nesse arquivo estão as funções que realizam as operações de CRUD no banco de dados para a tabela Analises
+//Ja esta comentado no usuario.js linha a linha
 const dbTrabalho = require('./mysql')
 
 const analise = {
@@ -15,9 +17,6 @@ const analise = {
         var dataResultado = req.body.dataResultado || null;
         var resultado = req.body.resultado || null;
         var idBebedouro = req.body.idBebedouro;
-
-        console.log('Atualizando analise ' + idAnalise, dataColeta, dataResultado, resultado, idBebedouro);
-        
 
         dbTrabalho.query('UPDATE Analises SET dataColeta = ?, dataResultado = ?, resultado = ?, idBebedouro = ? WHERE idAnalise = ?', [dataColeta, dataResultado, resultado, idBebedouro, idAnalise], (err) => {
             res.redirect('/analises');

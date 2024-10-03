@@ -6,19 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../css/body.css">
-    <title>Hello, world!</title>
+    <title>Painel de análises</title>
 </head>
 
 <body>
     <div class="container">
         <h1>Painel</h1>
-        <a href="/bebedouros">Bebedouros</a>
-        <a href="/analises">Análises</a>
+        <a class="botoes btnPainel usuarioLogado" href="/bebedouros">Bebedouros</a>
+        <a class="botoes btnPainel usuarioLogado" href="/analises">Análises</a>
+        <a class="botoes btnPainel usuarioNaoLogado" href="/Login">Login</a>
         <table class="table" id="table-bebedouros-com-analises"></table>
         <br>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./javascript/funcoesGerais.js"></script>
     <script src="./javascript/painel.js"></script>
 </body>
 

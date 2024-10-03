@@ -1,3 +1,5 @@
+//Nesse arquivo estão as funções que realizam as operações de CRUD no banco de dados para a tabela Bebedouros
+//Ja esta comentado no usuario.js linha a linha
 const dbTrabalho = require('./mysql')
 
 const bebedouro = {

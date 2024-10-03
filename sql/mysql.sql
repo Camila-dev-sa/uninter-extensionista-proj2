@@ -23,4 +23,4 @@ create table Analises (
     foreign key (idBebedouro) references Bebedouros (idBebedouro)
 );
 
-INSERT INTO Usuarios (nome, senha, email) VALUES ('Lucas Domenis', '1234', 'lucas@trabalho.com');
+INSERT INTO Usuarios (nome, senha, email) VALUES ('Camila Santos', '1234', 'camila@trabalho.com');

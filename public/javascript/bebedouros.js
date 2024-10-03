@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', function() {//quando a página carregar, executa a função
+    validaLogin()
     document.getElementById('editarBebedouro').style.display = 'none';
     document.getElementById('novoBebedouroForm').style.display = 'none';
     buscarTodosBebedouros();
@@ -7,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {//quando a página car
     let novoBebedouro = document.getElementById('novoBebedouro');
     novoBebedouro.addEventListener('click', function() {
         document.getElementById('novoBebedouroForm').style.display = 'block';
+        document.getElementById('editarBebedouro').style.display = 'none';
     });
 
 });
@@ -34,18 +36,18 @@ function buscarTodosBebedouros(){
             conteudo += '<td>' + data[i].idBebedouro + '</td>';
             conteudo += '<td>' + data[i].nome + '</td>';
             conteudo += '<td>' + data[i].localizacao + '</td>';
-            conteudo += '<td><button class="btn btn-primary editar-bebedouro">Editar</button>';
-            conteudo += '<button class="btn btn-danger apagar-bebedouro">Apagar</button></td>';
+            conteudo += '<td><button class="botoes editar-bebedouro"><img src="./imagens/pen-solid.svg"/></button>';
+            conteudo += '<button class="botoes-vermelho apagar-bebedouro"><img src="./imagens/trash-can-solid.svg"/></button></td>';
             conteudo += '</tr>';
         }
 
-        //cria na tablea tbpdy com o conteudo
+        //cria na tabela tbody com o conteudo
         tabela.innerHTML = `
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Local</th>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Localização</th>
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
@@ -70,6 +72,9 @@ function buscarTodosBebedouros(){
                             buscarTodosBebedouros();
                         });
                 }
+            function focus(idBededouro) {
+                document.getElementById(id).focus();
+            }
             });
         });
 
@@ -90,6 +95,7 @@ function buscarTodosBebedouros(){
 
                 //mostra o form de edição editar-bebedouro
                 document.getElementById('editarBebedouro').style.display = 'block';//mostra o form de edição
+                document.getElementById('novoBebedouroForm').style.display = 'none';//esconde o form de cadastro novo-bebedouro
 
 
             });

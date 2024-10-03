@@ -1,29 +1,28 @@
 document.addEventListener('DOMContentLoaded', async function() {
-    document.getElementById('editarAnalise').style.display = 'none';
-    document.getElementById('novoAnaliseForm').style.display = 'none';
-    await buscarTodosAnalises();
+    document.getElementById('editarAnalise').style.display = 'none';//esconde o form de edição editar-analise
+    document.getElementById('novoAnaliseForm').style.display = 'none';//esconde o form de cadastro novo-analise
+    await buscarTodosAnalises();//busca todos os analises
 
-    let novoAnalise = document.getElementById('novoAnalise');
+    let novoAnalise = document.getElementById('novoAnalise');//pega o botão de novo analise
     novoAnalise.addEventListener('click', function() {
-        buscarTodosBebedouros()
-        document.getElementById('novoAnaliseForm').style.display = 'block';
+        buscarTodosBebedouros()//busca todos os bebedouros e renderiza no select
+        document.getElementById('editarAnalise').style.display = 'none'; //mostra o form de cadastro novo-analise
+        document.getElementById('novoAnaliseForm').style.display = ''; //mostra o form de cadastro novo-analise
     });
 
     // Seleciona todos os elementos com a classe 'apagar-analise'
-    let botoesApagar = document.getElementsByClassName('apagar-analise');
-
-    // Itera sobre a coleção de elementos e adiciona um evento de clique a cada um
-    Array.from(botoesApagar).forEach(function(botao) {
+    let botoesApagar = document.getElementsByClassName('apagar-analise');//pega todos os botões de apagar analise
+    Array.from(botoesApagar).forEach(function(botao) {//itera sobre a coleção de elementos e adiciona um evento de clique a cada um
         botao.addEventListener('click', function() {
-            let idAnalise = this.parentNode.parentNode.children[0].innerText;
-            console.log('Apagando analise ' + idAnalise);
-            let confirmacao = confirm('Deseja realmente apagar o analise?');
+            let idAnalise = this.parentNode.parentNode.children[0].innerText;//pega o id do analise
+            let confirmacao = confirm('Deseja realmente apagar o analise?');//pergunta se o usuario quer mesmo excluir
             if (confirmacao) {
+                //exclui o analise
                 fetch('/apagar-analise?idAnalise=' + idAnalise, {
                     method: 'get'
                 })
                 .then((response) => {
-                    buscarTodosAnalises();
+                    buscarTodosAnalises();//busca todos os analises e renderiza na tabela
                 });
             }
         });
@@ -31,22 +30,20 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     let botoesEditar = document.getElementsByClassName('editar-analise');
 
-    Array.from(botoesEditar).forEach(function(botao) {
-        botao.addEventListener('click', function() {
-            buscarTodosBebedouros()
+    Array.from(botoesEditar).forEach( function(botao) {
+        botao.addEventListener('click', async function() {
+            await buscarTodosBebedouros()
             let idAnalise = this.parentNode.parentNode.children[0].innerText;
-            let dataColeta = this.parentNode.parentNode.children[1].innerText;
+            let dataColeta = reverteData(this.parentNode.parentNode.children[1].innerText);
             let idBebedouro = this.parentNode.parentNode.children[2].innerText;
-            let dataResultado = this.parentNode.parentNode.children[3].innerText;
+            let dataResultado = reverteData(this.parentNode.parentNode.children[3].innerText);
             let resultado = this.parentNode.parentNode.children[4].innerText;
 
-            if (resultado == 'Potável') {
+            if (resultado == 'Potável') {//se o resultado for potável, coloca 1 no campo resultado
                 resultado = 1;
-            }
-            else if (resultado == 'Não potável'){
+            } else if (resultado == 'Não potável'){//se o resultado for não potável, coloca 0 no campo resultado
                 resultado = 0;
-            }
-            else {
+            } else {//se não for nenhum dos dois, coloca vazio
                 resultado = '';
             }
 
@@ -57,7 +54,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             document.getElementById('resultado').value = resultado;
 
             //mostra o form de edição editar-analise
-            document.getElementById('editarAnalise').style.display = 'block';
+            document.getElementById('editarAnalise').style.display = '';
+            document.getElementById('novoAnaliseForm').style.display = 'none';
 
             
         });
@@ -85,21 +83,17 @@ async function buscarTodosAnalises(){
 
         //para cada analise, cria uma linha na tabela
         for (var i = 0; i < data.length; i++){
-            var potavel = 'Sem resultado'
-            if (data[i].resultado == 1) {
-                potavel = 'Potável'
-            }
-            if (data[i].resultado == 0) {
-                potavel = 'Não potável'
-            }
+            var dataColetaBr = formataData(data[i].dataColeta)
+            var dataResultado = formataData(data[i].dataResultado)
+            var potavel = textoAguaPotavel(data[i].resultado)
             conteudo += '<tr>';
             conteudo += '<td>' + data[i].idAnalise + '</td>';
-            conteudo += '<td>' + data[i].dataColeta.split("T")[0] + '</td>';
+            conteudo += '<td>' + dataColetaBr + '</td>';
             conteudo += '<td>' + data[i].idBebedouro + '</td>';
-            conteudo += '<td>' + data[i].dataResultado?.split("T")[0] + '</td>';
+            conteudo += '<td>' + dataResultado + '</td>';
             conteudo += '<td>' + potavel + '</td>';
-            conteudo += '<td><button class="btn btn-primary editar-analise">Editar</button>';
-            conteudo += '<button class="btn btn-danger apagar-analise">Apagar</button></td>';
+            conteudo += '<td><button class="botoes editar-analise"><img src="./imagens/pen-solid.svg"/></button>';
+            conteudo += '<button class="botoes-vermelho apagar-analise"><img src="./imagens/trash-can-solid.svg"/></button></td>';
             conteudo += '</tr>';
         }
 
@@ -107,10 +101,10 @@ async function buscarTodosAnalises(){
         tabela.innerHTML = `
             <thead>
                 <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">DataColeta</th>
-                    <th scope="col">idBebedouro</th>
-                    <th scope="col">DataResultado</th>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Data Coleta</th>
+                    <th scope="col">Bebedouro</th>
+                    <th scope="col">Data Resultado</th>
                     <th scope="col">Resultado</th>
                     <th scope="col">Ações</th>
                 </tr>
@@ -122,10 +116,10 @@ async function buscarTodosAnalises(){
     });
 }
 
-function buscarTodosBebedouros(){
+async function buscarTodosBebedouros(){
     console.log('Buscando todos os bebedouros');
     
-    fetch('/buscar-todos-bebedouros', {
+    await fetch('/buscar-todos-bebedouros', {
         method: 'GET'
     })
     .then((response) => {

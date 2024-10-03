@@ -14,7 +14,7 @@ const bebedouro = require('./api/bebedouro.js')
 const analise = require('./api/analise.js')
 
 app.get('/', function (req, res) {
-  res.render('index.html')
+  res.render('painel.html')
 })
 
 app.get('/login', function (req, res) {
@@ -42,8 +42,10 @@ app.get('/novo-bebedouro', function (req, res) {
 })
 
 //Apis
-app.post('/form-login', async function (req, res) {
-  usuario.login(req, res)
+app.post('/login', async function (req, res) {
+  let logou = await usuario.login(req, res)
+  console.log(logou);
+  
 })
 
 app.post('/cadastrar-bebedouro', async function (req, res) {
